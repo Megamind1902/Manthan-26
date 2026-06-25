@@ -301,12 +301,12 @@ const firebaseConfig = typeof __firebase_config !== 'undefined'
   ? JSON.parse(__firebase_config) 
   : {
       apiKey: "AIzaSyAqnkBjXYJAUQyAFe4lXf0ncXWzMrD_ie4",
-    authDomain: "manthan-26.firebaseapp.com",
-    databaseURL: "https://manthan-26-default-rtdb.asia-southeast1.firebasedatabase.app",
-    projectId: "manthan-26",
-    storageBucket: "manthan-26.firebasestorage.app",
-    messagingSenderId: "878189513972",
-    appId: "1:878189513972:web:ebcaa852fed2d446f962a1"
+      authDomain: "manthan-26.firebaseapp.com",
+      databaseURL: "https://manthan-26-default-rtdb.asia-southeast1.firebasedatabase.app",
+      projectId: "manthan-26",
+      storageBucket: "manthan-26.firebasestorage.app",
+      messagingSenderId: "878189513972",
+      appId: "1:878189513972:web:ebcaa852fed2d446f962a1"
     };
 
 const app = initializeApp(firebaseConfig);
@@ -384,7 +384,27 @@ function setupDatabaseListener() {
   
   onSnapshot(docRef, (snapshot) => {
     if (snapshot.exists()) {
-      teamData = snapshot.data();
+      const data = snapshot.data();
+      
+      // Flattened Firestore data loader to safely bypass nested array limits
+      if (data.jsonData) {
+        teamData = JSON.parse(data.jsonData);
+      } else {
+        teamData = {
+          title: data.title || "",
+          date: data.date || "",
+          venue: data.venue || "",
+          sc: data.sc || "",
+          pl: data.pl || "",
+          core: data.core || [],
+          extRowCount: data.extRowCount || 10,
+          ext: []
+        };
+        for (let i = 0; i < 8; i++) {
+          teamData.ext[i] = data[`ext_${i}`] || [];
+        }
+      }
+
       // Backfill extRowCount for older saves
       if (typeof teamData.extRowCount !== 'number') {
         teamData.extRowCount = Math.max(10, ...teamData.ext.map(a => a.length));
@@ -407,7 +427,22 @@ async function autosave(immediate = false) {
   const saveToDb = async () => {
     try {
       const docRef = doc(db, 'artifacts', appId, 'public', 'data', 'organogram', 'main');
-      await setDoc(docRef, teamData);
+      
+      // Restructure nested arrays into a flat object so Firestore accepts it natively
+      const dataToSave = {
+        title: teamData.title,
+        date: teamData.date,
+        venue: teamData.venue,
+        sc: teamData.sc,
+        pl: teamData.pl,
+        core: teamData.core,
+        extRowCount: teamData.extRowCount
+      };
+      for (let i = 0; i < 8; i++) {
+        dataToSave[`ext_${i}`] = teamData.ext[i] || [];
+      }
+
+      await setDoc(docRef, dataToSave);
       
       const toast = document.getElementById('save-toast');
       if (toast) {

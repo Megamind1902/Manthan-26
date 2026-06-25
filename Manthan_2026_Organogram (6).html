@@ -1,0 +1,823 @@
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Manthan 2026 – Organogram</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #1a2f5e; --shadow: 0 3px 12px rgba(0,0,0,0.12);
+    --shadow-hover: 0 6px 20px rgba(0,0,0,0.18);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Nunito', sans-serif; background: #f0f4f8; color: #1a2f5e; }
+  .page-header {
+    background: linear-gradient(135deg, #1a2f5e 0%, #2e4a8a 100%);
+    color: white; text-align: center; padding: 20px 40px 16px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.25);
+  }
+  .page-header h1 {
+    font-size: 2.4rem; font-weight: 900; letter-spacing: 4px;
+    text-transform: uppercase; text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  }
+  .info-bar {
+    background: white; border: 2px solid #c5d5ea;
+    margin: 20px auto; max-width: 1400px;
+    border-radius: 10px; overflow: hidden; box-shadow: var(--shadow);
+  }
+  .info-row {
+    display: flex; align-items: center;
+    padding: 10px 24px; border-bottom: 1px solid #e8eef5; gap: 16px;
+  }
+  .info-row:last-child { border-bottom: none; }
+  .info-icon {
+    width: 38px; height: 38px; border-radius: 8px;
+    background: var(--navy); display: flex; align-items: center;
+    justify-content: center; flex-shrink: 0;
+  }
+  .info-icon svg { width: 20px; height: 20px; fill: white; }
+  .info-label { font-weight: 800; color: var(--navy); min-width: 160px; font-size: 0.95rem; }
+  .info-sep { font-weight: 700; color: var(--navy); margin: 0 4px; }
+  .info-val { color: #333; font-size: 0.92rem; }
+  .org-wrapper { max-width: 1500px; margin: 0 auto 32px; padding: 0 20px; overflow-x: auto; }
+  .hierarchy-top { display: flex; flex-direction: column; align-items: center; gap: 0; margin-bottom: 0; }
+  .hier-box {
+    background: var(--navy); color: white;
+    border-radius: 10px; padding: 10px 32px;
+    display: flex; align-items: center; gap: 12px;
+    min-width: 280px; justify-content: center;
+    box-shadow: var(--shadow); position: relative; z-index: 2;
+  }
+  .hier-box .hb-icon {
+    width: 36px; height: 36px; border-radius: 50%;
+    background: white; display: flex; align-items: center;
+    justify-content: center; flex-shrink: 0;
+  }
+  .hier-box .hb-icon svg { width: 20px; height: 20px; fill: var(--navy); }
+  .hier-box .hb-text { text-align: center; }
+  .hier-box .hb-title { font-size: 0.75rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; opacity: 0.85; }
+  .hier-box .hb-name  { font-size: 1rem; font-weight: 800; }
+  .connector-v { width: 3px; height: 28px; background: var(--navy); margin: 0 auto; }
+  .top-stem { width: 3px; height: 32px; background: var(--navy); margin: 0 auto; }
+  .key-area-box {
+    border-radius: 12px; border: 2.5px solid;
+    padding: 12px 8px 10px; text-align: center;
+    width: 100%; display: flex; flex-direction: column;
+    align-items: center; gap: 6px; box-shadow: var(--shadow);
+    transition: box-shadow 0.2s, transform 0.2s;
+  }
+  .key-area-box:hover { box-shadow: var(--shadow-hover); transform: translateY(-2px); }
+  .ka-icon-circle {
+    width: 52px; height: 52px; border-radius: 50%;
+    border: 2.5px solid; display: flex; align-items: center;
+    justify-content: center; background: white;
+  }
+  .ka-icon-circle svg { width: 28px; height: 28px; }
+  .ka-label { font-size: 0.78rem; font-weight: 800; line-height: 1.3; }
+  .core-box {
+    border-radius: 10px; border: 2px solid;
+    padding: 10px 8px; text-align: center; width: 100%;
+    box-shadow: var(--shadow); transition: box-shadow 0.2s;
+  }
+  .core-box:hover { box-shadow: var(--shadow-hover); }
+  .core-name { font-size: 0.82rem; font-weight: 700; line-height: 1.4; }
+  .ext-box {
+    border-radius: 8px; border: 1.5px solid #c0cedb;
+    background: #f4f8fb; padding: 8px 6px; text-align: center; width: 100%;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.07);
+    min-height: 36px; display: flex; flex-direction: column;
+    justify-content: center; gap: 4px;
+  }
+  .ext-name { font-size: 0.78rem; font-weight: 600; color: #2c3e6b; line-height: 1.4; }
+  .ext-empty { color: #aab; font-size: 1.1rem; font-weight: 700; }
+  /* Editor */
+  .editor-panel {
+    background: white; max-width: 1400px;
+    margin: 0 auto 40px; border-radius: 12px;
+    box-shadow: var(--shadow); overflow: hidden; border: 1px solid #c5d5ea;
+  }
+  .editor-header {
+    background: var(--navy); color: white;
+    padding: 14px 24px; display: flex;
+    align-items: center; justify-content: space-between; cursor: pointer;
+  }
+  .editor-header h3 { font-size: 1rem; font-weight: 800; }
+  .editor-header .toggle { font-size: 1.2rem; transition: transform 0.3s; }
+  .editor-header.open .toggle { transform: rotate(180deg); }
+  .editor-body { padding: 24px; display: none; }
+  .editor-body.open { display: block; }
+  .info-edit-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px; }
+  .field-group { display: flex; flex-direction: column; gap: 4px; }
+  .field-group label { font-size: 0.8rem; font-weight: 700; color: var(--navy); }
+  .field-group input {
+    border: 1.5px solid #c5d5ea; border-radius: 6px;
+    padding: 7px 10px; font-family: inherit; font-size: 0.85rem; color: #222;
+    transition: border-color 0.2s;
+  }
+  .field-group input:focus { outline: none; border-color: var(--navy); }
+  .team-edit-table { width: 100%; border-collapse: collapse; font-size: 0.8rem; }
+  .team-edit-table th {
+    background: #eef3f9; padding: 8px 6px;
+    font-weight: 800; font-size: 0.72rem; text-align: center;
+    color: var(--navy); border: 1px solid #d0dcea; white-space: nowrap;
+  }
+  .team-edit-table td { border: 1px solid #e2eaf3; padding: 3px; }
+  .team-edit-table td input {
+    width: 100%; border: none; padding: 5px 6px;
+    font-family: inherit; font-size: 0.8rem; background: transparent; color: #222;
+  }
+  .team-edit-table td input:focus { outline: 1.5px solid var(--navy); border-radius: 3px; background: #f0f6ff; }
+  .team-edit-table tr:hover td { background: #f8fbff; }
+  .row-type-core td { background: #fffbea; }
+  .row-type-ext  td { background: #f8fbff; }
+  .btn-row { display: flex; gap: 12px; margin-top: 16px; flex-wrap: wrap; }
+  .btn {
+    border: none; border-radius: 8px; padding: 10px 22px;
+    font-family: inherit; font-size: 0.88rem; font-weight: 700;
+    cursor: pointer; transition: background 0.2s, transform 0.1s;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .btn:active { transform: scale(0.97); }
+  .btn-addrow  { background: #0d6efd; color: white; }
+  .btn-addrow:hover { background: #0a58ca; }
+  .btn-delrow  { background: #6c757d; color: white; }
+  .btn-delrow:hover { background: #565e64; }
+  .btn-save    { background: #1a2f5e; color: white; }
+  .btn-save:hover { background: #2e4a8a; }
+  .btn-download { background: #27a745; color: white; }
+  .btn-download:hover { background: #1e8035; }
+  .btn-reset   { background: #dc3545; color: white; }
+  .btn-reset:hover { background: #b02a37; }
+  .save-toast {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: #d4edda; color: #155724; border-radius: 6px;
+    padding: 8px 14px; font-size: 0.82rem; font-weight: 700;
+    opacity: 0; transition: opacity 0.3s; margin-left: 8px;
+  }
+  .save-toast.show { opacity: 1; }
+  @media print {
+    .editor-panel { display: none; }
+    body { background: white; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <h1 id="hdr-title">MANTHAN 2026</h1>
+</div>
+
+<div class="info-bar">
+  <div class="info-row">
+    <div class="info-icon"><svg viewBox="0 0 24 24"><path d="M19 4h-1V2h-2v2H8V2H6v2H5C3.9 4 3 4.9 3 6v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zm0-12H5V6h14v2zM7 12h5v5H7z"></path></svg></div>
+    <span class="info-label">Date</span><span class="info-sep">:</span>
+    <span class="info-val" id="info-date">30th-31st October 2026 (1 Night Stay–Check-in: 30th October, Check-out: 31st October)</span>
+  </div>
+  <div class="info-row">
+    <div class="info-icon"><svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"></path></svg></div>
+    <span class="info-label">Venue</span><span class="info-sep">:</span>
+    <span class="info-val" id="info-venue">Aldovia Resort &amp; Convention (formerly Clarks Exotica)</span>
+  </div>
+  <div class="info-row">
+    <div class="info-icon"><svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"></path></svg></div>
+    <span class="info-label">Steering Committee</span><span class="info-sep">:</span>
+    <span class="info-val" id="info-sc">Aastha, Jithesh</span>
+  </div>
+  <div class="info-row">
+    <div class="info-icon"><svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"></path></svg></div>
+    <span class="info-label">Project Lead</span><span class="info-sep">:</span>
+    <span class="info-val" id="info-pl">Aswath, Delna</span>
+  </div>
+</div>
+
+<div class="org-wrapper">
+  <div class="hierarchy-top">
+    <div class="hier-box">
+      <div class="hb-icon"><svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"></path></svg></div>
+      <div class="hb-text">
+        <div class="hb-title">Steering Committee</div>
+        <div class="hb-name" id="sc-name">Aastha, Jithesh</div>
+      </div>
+    </div>
+    <div class="connector-v"></div>
+    <div class="hier-box">
+      <div class="hb-icon"><svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"></path></svg></div>
+      <div class="hb-text">
+        <div class="hb-title">Project Lead</div>
+        <div class="hb-name" id="pl-name">Aswath, Delna</div>
+      </div>
+    </div>
+  </div>
+  <div style="display:flex;flex-direction:column;align-items:center;">
+    <div class="top-stem"></div>
+  </div>
+  <div id="chart-area"><div style="min-width:990px;"><div style="display:flex;gap:10px;align-items:stretch;"><div style="width:90px;flex-shrink:0;"></div><div style="flex:1;display:flex;justify-content:center;">
+      <div style="width:3px;height:28px;background:#2e75b6;"></div>
+    </div><div style="flex:1;display:flex;justify-content:center;">
+      <div style="width:3px;height:28px;background:#2e8b57;"></div>
+    </div><div style="flex:1;display:flex;justify-content:center;">
+      <div style="width:3px;height:28px;background:#27a745;"></div>
+    </div><div style="flex:1;display:flex;justify-content:center;">
+      <div style="width:3px;height:28px;background:#e8861a;"></div>
+    </div><div style="flex:1;display:flex;justify-content:center;">
+      <div style="width:3px;height:28px;background:#cc7a00;"></div>
+    </div><div style="flex:1;display:flex;justify-content:center;">
+      <div style="width:3px;height:28px;background:#8b5cf6;"></div>
+    </div><div style="flex:1;display:flex;justify-content:center;">
+      <div style="width:3px;height:28px;background:#d63384;"></div>
+    </div><div style="flex:1;display:flex;justify-content:center;">
+      <div style="width:3px;height:28px;background:#dc3545;"></div>
+    </div></div><div style="display:flex;gap:10px;align-items:stretch;"><div style="width:90px;flex-shrink:0;background:#1a2f5e;color:white;border-radius:8px;
+    display:flex;align-items:center;justify-content:center;text-align:center;
+    font-size:0.75rem;font-weight:800;letter-spacing:1px;text-transform:uppercase;
+    line-height:1.3;padding:6px 4px;box-shadow:0 3px 10px rgba(0,0,0,0.15);">KEY<br>AREA</div><div style="flex:1;">
+      <div class="key-area-box" style="border-color:#2e75b6;background:#dbeaf7;">
+        <div class="ka-icon-circle" style="border-color:#2e75b6;">
+          <svg viewBox="0 0 24 24" style="fill:#2e75b6"><path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"></path></svg>
+        </div>
+        <div class="ka-label" style="color:#2e75b6;">Travel &amp;<br>Accommodation</div>
+      </div>
+    </div><div style="flex:1;">
+      <div class="key-area-box" style="border-color:#2e8b57;background:#d6f0e0;">
+        <div class="ka-icon-circle" style="border-color:#2e8b57;">
+          <svg viewBox="0 0 24 24" style="fill:#2e8b57"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"></path></svg>
+        </div>
+        <div class="ka-label" style="color:#2e8b57;">Event Mgmt.<br>Team Building</div>
+      </div>
+    </div><div style="flex:1;">
+      <div class="key-area-box" style="border-color:#27a745;background:#d4edda;">
+        <div class="ka-icon-circle" style="border-color:#27a745;">
+          <svg viewBox="0 0 24 24" style="fill:#27a745"><path d="M13.49 5.48c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm-3.6 13.9l1-4.4 2.1 2v6h2v-7.5l-2.1-2 .6-3c1.3 1.5 3.3 2.5 5.5 2.5v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1l-5.2 2.2v4.7h2v-3.4l1.8-.7-1.6 8.1-4.9-1-.4 2 7 1.4z"></path></svg>
+        </div>
+        <div class="ka-label" style="color:#27a745;">Event Mgmt.<br>Sports</div>
+      </div>
+    </div><div style="flex:1;">
+      <div class="key-area-box" style="border-color:#e8861a;background:#fdebd0;">
+        <div class="ka-icon-circle" style="border-color:#e8861a;">
+          <svg viewBox="0 0 24 24" style="fill:#e8861a"><path d="M16.5 2.25L15 3.75 13.5 2.25C13.1 2.09 12.56 2 12 2s-1.1.09-1.5.25L9 3.75 7.5 2.25C6.5 1.5 5 1.5 4 2.25L2 4l2.5 2.5C4.18 7.12 4 7.79 4 8.5V21h16V8.5c0-.71-.18-1.38-.5-1.96L22 4l-2-.25-3.5-1.5z"></path></svg>
+        </div>
+        <div class="ka-label" style="color:#e8861a;">Merchandise<br>&amp; Branding</div>
+      </div>
+    </div><div style="flex:1;">
+      <div class="key-area-box" style="border-color:#cc7a00;background:#fff3cd;">
+        <div class="ka-icon-circle" style="border-color:#cc7a00;">
+          <svg viewBox="0 0 24 24" style="fill:#cc7a00"><path d="M19 5h-2V3H7v2H5c-1.1 0-2 .9-2 2v1c0 2.55 1.92 4.63 4.39 4.94.63 1.5 1.98 2.63 3.61 2.96V19H7v2h10v-2h-4v-3.1c1.63-.33 2.98-1.46 3.61-2.96C19.08 12.63 21 10.55 21 8V7c0-1.1-.9-2-2-2zM5 8V7h2v3.82C5.84 10.4 5 9.3 5 8zm14 0c0 1.3-.84 2.4-2 2.82V7h2v1z"></path></svg>
+        </div>
+        <div class="ka-label" style="color:#cc7a00;">Awards &amp;<br>Recognition</div>
+      </div>
+    </div><div style="flex:1;">
+      <div class="key-area-box" style="border-color:#8b5cf6;background:#ede9fe;">
+        <div class="ka-icon-circle" style="border-color:#8b5cf6;">
+          <svg viewBox="0 0 24 24" style="fill:#8b5cf6"><path d="M20 6h-2.18c.07-.31.18-.61.18-.94C18 3.36 16.64 2 15.06 2c-.79 0-1.46.31-1.97.82L12 3.92l-1.09-1.1C10.4 2.31 9.73 2 8.94 2 7.36 2 6 3.36 6 4.94c0 .33.11.63.18.94H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-5-.94c.28 0 .5.22.5.5s-.22.5-.5.5-.5-.22-.5-.5.22-.5.5-.5zM8.94 4c.28 0 .5.22.5.5s-.22.5-.5.5-.5-.22-.5-.5.22-.5.5-.5zM11 19H4v-7h7v7zm0-9H4V8h7v2zm9 9h-7v-7h7v7zm0-9h-7V8h7v2z"></path></svg>
+        </div>
+        <div class="ka-label" style="color:#8b5cf6;">Gift<br>Hampers</div>
+      </div>
+    </div><div style="flex:1;">
+      <div class="key-area-box" style="border-color:#d63384;background:#fce4ef;">
+        <div class="ka-icon-circle" style="border-color:#d63384;">
+          <svg viewBox="0 0 24 24" style="fill:#d63384"><path d="M12 14c1.66 0 2.99-1.34 2.99-3L15 5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5.3-3c0 3-2.54 5.1-5.3 5.1S6.7 14 6.7 11H5c0 3.41 2.72 6.23 6 6.72V21h2v-3.28c3.28-.48 6-3.3 6-6.72h-1.7z"></path></svg>
+        </div>
+        <div class="ka-label" style="color:#d63384;">Cultural &amp;<br>Gala Night</div>
+      </div>
+    </div><div style="flex:1;">
+      <div class="key-area-box" style="border-color:#dc3545;background:#fde8ea;">
+        <div class="ka-icon-circle" style="border-color:#dc3545;">
+          <svg viewBox="0 0 24 24" style="fill:#dc3545"><path d="M19 3H5c-1.1 0-1.99.9-1.99 2L3 19c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-1 11h-4v4h-4v-4H6v-4h4V6h4v4h4v4z"></path></svg>
+        </div>
+        <div class="ka-label" style="color:#dc3545;">Medical &amp;<br>Safety Support</div>
+      </div>
+    </div></div><div style="display:flex;gap:10px;"><div style="width:90px;flex-shrink:0;"></div><div style="flex:1;display:flex;justify-content:center;">
+      <div style="width:0;height:20px;border-left:2.5px dashed #2e75b6;"></div>
+    </div><div style="flex:1;display:flex;justify-content:center;">
+      <div style="width:0;height:20px;border-left:2.5px dashed #2e8b57;"></div>
+    </div><div style="flex:1;display:flex;justify-content:center;">
+      <div style="width:0;height:20px;border-left:2.5px dashed #27a745;"></div>
+    </div><div style="flex:1;display:flex;justify-content:center;">
+      <div style="width:0;height:20px;border-left:2.5px dashed #e8861a;"></div>
+    </div><div style="flex:1;display:flex;justify-content:center;">
+      <div style="width:0;height:20px;border-left:2.5px dashed #cc7a00;"></div>
+    </div><div style="flex:1;display:flex;justify-content:center;">
+      <div style="width:0;height:20px;border-left:2.5px dashed #8b5cf6;"></div>
+    </div><div style="flex:1;display:flex;justify-content:center;">
+      <div style="width:0;height:20px;border-left:2.5px dashed #d63384;"></div>
+    </div><div style="flex:1;display:flex;justify-content:center;">
+      <div style="width:0;height:20px;border-left:2.5px dashed #dc3545;"></div>
+    </div></div><div style="display:flex;gap:10px;align-items:stretch;"><div style="width:90px;flex-shrink:0;background:#1a2f5e;color:white;border-radius:8px;
+    display:flex;align-items:center;justify-content:center;text-align:center;
+    font-size:0.75rem;font-weight:800;letter-spacing:1px;text-transform:uppercase;
+    line-height:1.3;padding:6px 4px;box-shadow:0 3px 10px rgba(0,0,0,0.15);">CORE<br>TEAM</div><div style="flex:1;">
+      <div class="core-box" style="border-color:#2e75b6;background:#dbeaf7;"><div class="core-name" style="color:#2e75b6;">Delna</div><div class="core-name" style="color:#2e75b6;">Jyoti</div></div></div><div style="flex:1;">
+      <div class="core-box" style="border-color:#2e8b57;background:#d6f0e0;"><div class="core-name" style="color:#2e8b57;">Aswath</div><div class="core-name" style="color:#2e8b57;">Vibhakar</div></div></div><div style="flex:1;">
+      <div class="core-box" style="border-color:#27a745;background:#d4edda;"><div class="core-name" style="color:#27a745;">Kushagra</div><div class="core-name" style="color:#27a745;">Pradip</div></div></div><div style="flex:1;">
+      <div class="core-box" style="border-color:#e8861a;background:#fdebd0;"><div class="core-name" style="color:#e8861a;">Sneha</div><div class="core-name" style="color:#e8861a;">Jessi</div></div></div><div style="flex:1;">
+      <div class="core-box" style="border-color:#cc7a00;background:#fff3cd;"><div class="core-name" style="color:#cc7a00;">Hitacharan</div></div></div><div style="flex:1;">
+      <div class="core-box" style="border-color:#8b5cf6;background:#ede9fe;"><div class="core-name" style="color:#8b5cf6;">Ashwini R</div></div></div><div style="flex:1;">
+      <div class="core-box" style="border-color:#d63384;background:#fce4ef;"><div class="core-name" style="color:#d63384;">Harsharaj</div><div class="core-name" style="color:#d63384;">Vipul</div></div></div><div style="flex:1;">
+      <div class="core-box" style="border-color:#dc3545;background:#fde8ea;"><div class="core-name" style="color:#dc3545;">Anish</div></div></div></div><div style="display:flex;gap:10px;"><div style="width:90px;flex-shrink:0;"></div><div style="flex:1;display:flex;justify-content:center;">
+      <div style="width:0;height:20px;border-left:2.5px dashed #aab;"></div>
+    </div><div style="flex:1;display:flex;justify-content:center;">
+      <div style="width:0;height:20px;border-left:2.5px dashed #aab;"></div>
+    </div><div style="flex:1;display:flex;justify-content:center;">
+      <div style="width:0;height:20px;border-left:2.5px dashed #aab;"></div>
+    </div><div style="flex:1;display:flex;justify-content:center;">
+      <div style="width:0;height:20px;border-left:2.5px dashed #aab;"></div>
+    </div><div style="flex:1;display:flex;justify-content:center;">
+      <div style="width:0;height:20px;border-left:2.5px dashed #aab;"></div>
+    </div><div style="flex:1;display:flex;justify-content:center;">
+      <div style="width:0;height:20px;border-left:2.5px dashed #aab;"></div>
+    </div><div style="flex:1;display:flex;justify-content:center;">
+      <div style="width:0;height:20px;border-left:2.5px dashed #aab;"></div>
+    </div><div style="flex:1;display:flex;justify-content:center;">
+      <div style="width:0;height:20px;border-left:2.5px dashed #aab;"></div>
+    </div></div><div style="display:flex;gap:10px;align-items:stretch;margin-bottom:24px;"><div style="width:90px;flex-shrink:0;background:#3a6b38;color:white;border-radius:8px;
+    display:flex;align-items:center;justify-content:center;text-align:center;
+    font-size:0.75rem;font-weight:800;letter-spacing:1px;text-transform:uppercase;
+    line-height:1.3;padding:6px 4px;box-shadow:0 3px 10px rgba(0,0,0,0.15);">EXTENDED<br>TEAM</div><div style="flex:1;">
+      <div class="ext-box"><div class="ext-name">Renuka</div><div class="ext-name">Ashwini</div><div class="ext-name">Bishwajit</div></div></div><div style="flex:1;">
+      <div class="ext-box"><div class="ext-name">Rajat</div><div class="ext-name">Abhishek</div></div></div><div style="flex:1;">
+      <div class="ext-box"><div class="ext-name">Vipul</div><div class="ext-name">Abhinav</div><div class="ext-name">Pratik Mewada</div><div class="ext-name">Kiran Kumar Tripathy</div></div></div><div style="flex:1;">
+      <div class="ext-box"><div class="ext-name">Akash Deep</div><div class="ext-name">Shalini</div></div></div><div style="flex:1;">
+      <div class="ext-box"><div class="ext-name">Pradip</div><div class="ext-name">Sibinlal</div></div></div><div style="flex:1;">
+      <div class="ext-box"><div class="ext-name">Suma C</div><div class="ext-name">Vaibhav Sharma</div></div></div><div style="flex:1;">
+      <div class="ext-box"><div class="ext-name">Shreeji</div><div class="ext-name">Shubham</div><div class="ext-name">Shashidhar</div><div class="ext-name">Natarajan B</div><div class="ext-name">Kiran Kumar Tripathy</div><div class="ext-name">Tushar</div></div></div><div style="flex:1;">
+      <div class="ext-box"><div class="ext-name">Lavanya</div><div class="ext-name">Yashpal</div></div></div></div></div></div>
+</div>
+
+<!-- Editor Panel -->
+<div class="editor-panel">
+  <div class="editor-header open" id="editor-toggle" onclick="toggleEditor()">
+    <h3>✏️ Edit Team Members — Changes Update the Chart Instantly</h3>
+    <span class="toggle" id="toggle-icon">▼</span>
+  </div>
+  <div class="editor-body open" id="editor-body">
+    <div class="info-edit-grid">
+      <div class="field-group" style="grid-column:1/-1">
+        <label>Event Title</label>
+        <input id="ed-title" oninput="onInfoEdit()">
+      </div>
+      <div class="field-group">
+        <label>Date</label>
+        <input id="ed-date" oninput="onInfoEdit()">
+      </div>
+      <div class="field-group">
+        <label>Venue</label>
+        <input id="ed-venue" oninput="onInfoEdit()">
+      </div>
+      <div class="field-group">
+        <label>Steering Committee</label>
+        <input id="ed-sc" oninput="onInfoEdit()">
+      </div>
+      <div class="field-group">
+        <label>Project Lead</label>
+        <input id="ed-pl" oninput="onInfoEdit()">
+      </div>
+    </div>
+    <p style="font-size:0.8rem;color:#555;margin-bottom:8px;font-weight:600;">
+      Team Members — edit cells below. Chart updates as you type. Leave blank to remove.
+    </p>
+    <table class="team-edit-table">
+      <thead>
+        <tr>
+          <th style="width:80px">Row</th>
+          <th>Travel &amp;<br>Accommodation</th>
+          <th>Event Mgmt.<br>Team Building</th>
+          <th>Event Mgmt.<br>Sports</th>
+          <th>Merchandise<br>&amp; Branding</th>
+          <th>Awards &amp;<br>Recognition</th>
+          <th>Gift<br>Hampers</th>
+          <th>Cultural &amp;<br>Gala Night</th>
+          <th>Medical &amp;<br>Safety</th>
+        </tr>
+      </thead>
+      <tbody id="team-tbody"><tr class="row-type-core"><td style="text-align:center;font-weight:700;font-size:0.75rem;color:#7f4f00;padding:4px;">Core Team</td><td><input value="Delna, Jyoti" data-type="core" data-col="0" oninput="onCellEdit(this)"></td><td><input value="Aswath, Vibhakar" data-type="core" data-col="1" oninput="onCellEdit(this)"></td><td><input value="Kushagra, Pradip" data-type="core" data-col="2" oninput="onCellEdit(this)"></td><td><input value="Sneha, Jessi" data-type="core" data-col="3" oninput="onCellEdit(this)"></td><td><input value="Hitacharan" data-type="core" data-col="4" oninput="onCellEdit(this)"></td><td><input value="Ashwini R" data-type="core" data-col="5" oninput="onCellEdit(this)"></td><td><input value="Harsharaj, Vipul" data-type="core" data-col="6" oninput="onCellEdit(this)"></td><td><input value="Anish" data-type="core" data-col="7" oninput="onCellEdit(this)"></td></tr><tr class="row-type-ext" data-extrow="0"><td style="text-align:center;font-size:0.72rem;color:#555;padding:4px;white-space:nowrap;">
+    Ext 1
+    <button onclick="deleteRow(0)" title="Delete this row" style="background:none;border:none;cursor:pointer;color:#dc3545;font-size:0.9rem;padding:0 2px;line-height:1;">✕</button>
+  </td><td><input value="Renuka" data-type="ext" data-col="0" data-row="0" oninput="onCellEdit(this)"></td><td><input value="Rajat" data-type="ext" data-col="1" data-row="0" oninput="onCellEdit(this)"></td><td><input value="Vipul" data-type="ext" data-col="2" data-row="0" oninput="onCellEdit(this)"></td><td><input value="Akash Deep" data-type="ext" data-col="3" data-row="0" oninput="onCellEdit(this)"></td><td><input value="Pradip" data-type="ext" data-col="4" data-row="0" oninput="onCellEdit(this)"></td><td><input value="Suma C" data-type="ext" data-col="5" data-row="0" oninput="onCellEdit(this)"></td><td><input value="Shreeji" data-type="ext" data-col="6" data-row="0" oninput="onCellEdit(this)"></td><td><input value="Lavanya" data-type="ext" data-col="7" data-row="0" oninput="onCellEdit(this)"></td></tr><tr class="row-type-ext" data-extrow="1"><td style="text-align:center;font-size:0.72rem;color:#555;padding:4px;white-space:nowrap;">
+    Ext 2
+    <button onclick="deleteRow(1)" title="Delete this row" style="background:none;border:none;cursor:pointer;color:#dc3545;font-size:0.9rem;padding:0 2px;line-height:1;">✕</button>
+  </td><td><input value="Ashwini" data-type="ext" data-col="0" data-row="1" oninput="onCellEdit(this)"></td><td><input value="Abhishek" data-type="ext" data-col="1" data-row="1" oninput="onCellEdit(this)"></td><td><input value="Abhinav" data-type="ext" data-col="2" data-row="1" oninput="onCellEdit(this)"></td><td><input value="Shalini" data-type="ext" data-col="3" data-row="1" oninput="onCellEdit(this)"></td><td><input value="Sibinlal" data-type="ext" data-col="4" data-row="1" oninput="onCellEdit(this)"></td><td><input value="Vaibhav Sharma" data-type="ext" data-col="5" data-row="1" oninput="onCellEdit(this)"></td><td><input value="Shubham" data-type="ext" data-col="6" data-row="1" oninput="onCellEdit(this)"></td><td><input value="Yashpal" data-type="ext" data-col="7" data-row="1" oninput="onCellEdit(this)"></td></tr><tr class="row-type-ext" data-extrow="2"><td style="text-align:center;font-size:0.72rem;color:#555;padding:4px;white-space:nowrap;">
+    Ext 3
+    <button onclick="deleteRow(2)" title="Delete this row" style="background:none;border:none;cursor:pointer;color:#dc3545;font-size:0.9rem;padding:0 2px;line-height:1;">✕</button>
+  </td><td><input value="Bishwajit" data-type="ext" data-col="0" data-row="2" oninput="onCellEdit(this)"></td><td><input value="" data-type="ext" data-col="1" data-row="2" oninput="onCellEdit(this)"></td><td><input value="Pratik Mewada" data-type="ext" data-col="2" data-row="2" oninput="onCellEdit(this)"></td><td><input value="" data-type="ext" data-col="3" data-row="2" oninput="onCellEdit(this)"></td><td><input value="" data-type="ext" data-col="4" data-row="2" oninput="onCellEdit(this)"></td><td><input value="" data-type="ext" data-col="5" data-row="2" oninput="onCellEdit(this)"></td><td><input value="Shashidhar" data-type="ext" data-col="6" data-row="2" oninput="onCellEdit(this)"></td><td><input value="" data-type="ext" data-col="7" data-row="2" oninput="onCellEdit(this)"></td></tr><tr class="row-type-ext" data-extrow="3"><td style="text-align:center;font-size:0.72rem;color:#555;padding:4px;white-space:nowrap;">
+    Ext 4
+    <button onclick="deleteRow(3)" title="Delete this row" style="background:none;border:none;cursor:pointer;color:#dc3545;font-size:0.9rem;padding:0 2px;line-height:1;">✕</button>
+  </td><td><input value="" data-type="ext" data-col="0" data-row="3" oninput="onCellEdit(this)"></td><td><input value="" data-type="ext" data-col="1" data-row="3" oninput="onCellEdit(this)"></td><td><input value="Kiran Kumar Tripathy" data-type="ext" data-col="2" data-row="3" oninput="onCellEdit(this)"></td><td><input value="" data-type="ext" data-col="3" data-row="3" oninput="onCellEdit(this)"></td><td><input value="" data-type="ext" data-col="4" data-row="3" oninput="onCellEdit(this)"></td><td><input value="" data-type="ext" data-col="5" data-row="3" oninput="onCellEdit(this)"></td><td><input value="Natarajan B" data-type="ext" data-col="6" data-row="3" oninput="onCellEdit(this)"></td><td><input value="" data-type="ext" data-col="7" data-row="3" oninput="onCellEdit(this)"></td></tr><tr class="row-type-ext" data-extrow="4"><td style="text-align:center;font-size:0.72rem;color:#555;padding:4px;white-space:nowrap;">
+    Ext 5
+    <button onclick="deleteRow(4)" title="Delete this row" style="background:none;border:none;cursor:pointer;color:#dc3545;font-size:0.9rem;padding:0 2px;line-height:1;">✕</button>
+  </td><td><input value="" data-type="ext" data-col="0" data-row="4" oninput="onCellEdit(this)"></td><td><input value="" data-type="ext" data-col="1" data-row="4" oninput="onCellEdit(this)"></td><td><input value="" data-type="ext" data-col="2" data-row="4" oninput="onCellEdit(this)"></td><td><input value="" data-type="ext" data-col="3" data-row="4" oninput="onCellEdit(this)"></td><td><input value="" data-type="ext" data-col="4" data-row="4" oninput="onCellEdit(this)"></td><td><input value="" data-type="ext" data-col="5" data-row="4" oninput="onCellEdit(this)"></td><td><input value="Kiran Kumar Tripathy" data-type="ext" data-col="6" data-row="4" oninput="onCellEdit(this)"></td><td><input value="" data-type="ext" data-col="7" data-row="4" oninput="onCellEdit(this)"></td></tr><tr class="row-type-ext" data-extrow="5"><td style="text-align:center;font-size:0.72rem;color:#555;padding:4px;white-space:nowrap;">
+    Ext 6
+    <button onclick="deleteRow(5)" title="Delete this row" style="background:none;border:none;cursor:pointer;color:#dc3545;font-size:0.9rem;padding:0 2px;line-height:1;">✕</button>
+  </td><td><input value="" data-type="ext" data-col="0" data-row="5" oninput="onCellEdit(this)"></td><td><input value="" data-type="ext" data-col="1" data-row="5" oninput="onCellEdit(this)"></td><td><input value="" data-type="ext" data-col="2" data-row="5" oninput="onCellEdit(this)"></td><td><input value="" data-type="ext" data-col="3" data-row="5" oninput="onCellEdit(this)"></td><td><input value="" data-type="ext" data-col="4" data-row="5" oninput="onCellEdit(this)"></td><td><input value="" data-type="ext" data-col="5" data-row="5" oninput="onCellEdit(this)"></td><td><input value="Tushar" data-type="ext" data-col="6" data-row="5" oninput="onCellEdit(this)"></td><td><input value="" data-type="ext" data-col="7" data-row="5" oninput="onCellEdit(this)"></td></tr><tr class="row-type-ext" data-extrow="6"><td style="text-align:center;font-size:0.72rem;color:#555;padding:4px;white-space:nowrap;">
+    Ext 7
+    <button onclick="deleteRow(6)" title="Delete this row" style="background:none;border:none;cursor:pointer;color:#dc3545;font-size:0.9rem;padding:0 2px;line-height:1;">✕</button>
+  </td><td><input value="" data-type="ext" data-col="0" data-row="6" oninput="onCellEdit(this)"></td><td><input value="" data-type="ext" data-col="1" data-row="6" oninput="onCellEdit(this)"></td><td><input value="" data-type="ext" data-col="2" data-row="6" oninput="onCellEdit(this)"></td><td><input value="" data-type="ext" data-col="3" data-row="6" oninput="onCellEdit(this)"></td><td><input value="" data-type="ext" data-col="4" data-row="6" oninput="onCellEdit(this)"></td><td><input value="" data-type="ext" data-col="5" data-row="6" oninput="onCellEdit(this)"></td><td><input value="" data-type="ext" data-col="6" data-row="6" oninput="onCellEdit(this)"></td><td><input value="" data-type="ext" data-col="7" data-row="6" oninput="onCellEdit(this)"></td></tr><tr class="row-type-ext" data-extrow="7"><td style="text-align:center;font-size:0.72rem;color:#555;padding:4px;white-space:nowrap;">
+    Ext 8
+    <button onclick="deleteRow(7)" title="Delete this row" style="background:none;border:none;cursor:pointer;color:#dc3545;font-size:0.9rem;padding:0 2px;line-height:1;">✕</button>
+  </td><td><input value="" data-type="ext" data-col="0" data-row="7" oninput="onCellEdit(this)"></td><td><input value="" data-type="ext" data-col="1" data-row="7" oninput="onCellEdit(this)"></td><td><input value="" data-type="ext" data-col="2" data-row="7" oninput="onCellEdit(this)"></td><td><input value="" data-type="ext" data-col="3" data-row="7" oninput="onCellEdit(this)"></td><td><input value="" data-type="ext" data-col="4" data-row="7" oninput="onCellEdit(this)"></td><td><input value="" data-type="ext" data-col="5" data-row="7" oninput="onCellEdit(this)"></td><td><input value="" data-type="ext" data-col="6" data-row="7" oninput="onCellEdit(this)"></td><td><input value="" data-type="ext" data-col="7" data-row="7" oninput="onCellEdit(this)"></td></tr><tr class="row-type-ext" data-extrow="8"><td style="text-align:center;font-size:0.72rem;color:#555;padding:4px;white-space:nowrap;">
+    Ext 9
+    <button onclick="deleteRow(8)" title="Delete this row" style="background:none;border:none;cursor:pointer;color:#dc3545;font-size:0.9rem;padding:0 2px;line-height:1;">✕</button>
+  </td><td><input value="" data-type="ext" data-col="0" data-row="8" oninput="onCellEdit(this)"></td><td><input value="" data-type="ext" data-col="1" data-row="8" oninput="onCellEdit(this)"></td><td><input value="" data-type="ext" data-col="2" data-row="8" oninput="onCellEdit(this)"></td><td><input value="" data-type="ext" data-col="3" data-row="8" oninput="onCellEdit(this)"></td><td><input value="" data-type="ext" data-col="4" data-row="8" oninput="onCellEdit(this)"></td><td><input value="" data-type="ext" data-col="5" data-row="8" oninput="onCellEdit(this)"></td><td><input value="" data-type="ext" data-col="6" data-row="8" oninput="onCellEdit(this)"></td><td><input value="" data-type="ext" data-col="7" data-row="8" oninput="onCellEdit(this)"></td></tr><tr class="row-type-ext" data-extrow="9"><td style="text-align:center;font-size:0.72rem;color:#555;padding:4px;white-space:nowrap;">
+    Ext 10
+    <button onclick="deleteRow(9)" title="Delete this row" style="background:none;border:none;cursor:pointer;color:#dc3545;font-size:0.9rem;padding:0 2px;line-height:1;">✕</button>
+  </td><td><input value="" data-type="ext" data-col="0" data-row="9" oninput="onCellEdit(this)"></td><td><input value="" data-type="ext" data-col="1" data-row="9" oninput="onCellEdit(this)"></td><td><input value="" data-type="ext" data-col="2" data-row="9" oninput="onCellEdit(this)"></td><td><input value="" data-type="ext" data-col="3" data-row="9" oninput="onCellEdit(this)"></td><td><input value="" data-type="ext" data-col="4" data-row="9" oninput="onCellEdit(this)"></td><td><input value="" data-type="ext" data-col="5" data-row="9" oninput="onCellEdit(this)"></td><td><input value="" data-type="ext" data-col="6" data-row="9" oninput="onCellEdit(this)"></td><td><input value="" data-type="ext" data-col="7" data-row="9" oninput="onCellEdit(this)"></td></tr></tbody>
+    </table>
+
+    <div class="btn-row">
+      <button class="btn btn-addrow" onclick="addRow()">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="white"><path d="M19 13H13v6h-2v-6H5v-2h6V5h2v6h6v2z"></path></svg>
+        Add Row
+      </button>
+      <button class="btn btn-delrow" onclick="deleteLastRow()">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="white"><path d="M19 13H5v-2h14v2z"></path></svg>
+        Remove Last Row
+      </button>
+      <button class="btn btn-save" onclick="saveData()">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="white"><path d="M17 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V7l-4-4zm-5 16c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm3-10H5V5h10v4z"></path></svg>
+        Save Changes
+      </button>
+      <button class="btn btn-download" onclick="downloadFile()">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="white"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"></path></svg>
+        Download Updated File
+      </button>
+      <button class="btn btn-reset" onclick="resetData()" style="margin-left:auto;">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="white"><path d="M12 5V1L7 6l5 5V7c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6H4c0 4.42 3.58 8 8 8s8-3.58 8-8-3.58-8-8-8z"></path></svg>
+        Reset to Default
+      </button>
+      <span class="save-toast" id="save-toast">✓ Saved!</span>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── Default data (baked in) ──────────────────────────────────────────────────
+const DEFAULT_DATA = {
+  "title": "MANTHAN 2026",
+  "date": "30th-31st October 2026 (1 Night Stay–Check-in: 30th October, Check-out: 31st October)",
+  "venue": "Aldovia Resort & Convention (formerly Clarks Exotica)",
+  "sc": "Aastha, Jithesh",
+  "pl": "Aswath, Delna",
+  "core": [
+    "Delna\nJyoti",
+    "Aswath\nVibhakar",
+    "Kushagra\nPradip",
+    "Sneha\nJessi",
+    "Hitacharan",
+    "Ashwini R",
+    "Harsharaj\nVipul",
+    "Anish"
+  ],
+  "ext": [
+    [
+      "Renuka",
+      "Ashwini",
+      "Bishwajit"
+    ],
+    [
+      "Rajat",
+      "Abhishek"
+    ],
+    [
+      "Vipul",
+      "Abhinav",
+      "Pratik Mewada",
+      "Kiran Kumar Tripathy"
+    ],
+    [
+      "Akash Deep",
+      "Shalini"
+    ],
+    [
+      "Pradip",
+      "Sibinlal"
+    ],
+    [
+      "Suma C",
+      "Vaibhav Sharma"
+    ],
+    [
+      "Shreeji",
+      "Shubham",
+      "Shashidhar",
+      "Natarajan B",
+      "Kiran Kumar Tripathy",
+      "Tushar"
+    ],
+    [
+      "Lavanya",
+      "Yashpal"
+    ]
+  ],
+  "extRowCount": 10
+};
+
+const STORAGE_KEY = 'manthan2026_organogram';
+
+const AREAS = [
+  { label: "Travel &\nAccommodation",    color: '#2e75b6', light: '#dbeaf7', icon: 'plane'    },
+  { label: "Event Mgmt.\nTeam Building", color: '#2e8b57', light: '#d6f0e0', icon: 'teamwork' },
+  { label: "Event Mgmt.\nSports",        color: '#27a745', light: '#d4edda', icon: 'sports'   },
+  { label: "Merchandise\n& Branding",    color: '#e8861a', light: '#fdebd0', icon: 'tshirt'   },
+  { label: "Awards &\nRecognition",      color: '#cc7a00', light: '#fff3cd', icon: 'trophy'   },
+  { label: "Gift\nHampers",              color: '#8b5cf6', light: '#ede9fe', icon: 'gift'     },
+  { label: "Cultural &\nGala Night",     color: '#d63384', light: '#fce4ef', icon: 'mic'      },
+  { label: "Medical &\nSafety Support",  color: '#dc3545', light: '#fde8ea', icon: 'medical'  }
+];
+
+const ICONS = {
+  plane:    `<path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/>`,
+  teamwork: `<path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/>`,
+  sports:   `<path d="M13.49 5.48c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm-3.6 13.9l1-4.4 2.1 2v6h2v-7.5l-2.1-2 .6-3c1.3 1.5 3.3 2.5 5.5 2.5v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1l-5.2 2.2v4.7h2v-3.4l1.8-.7-1.6 8.1-4.9-1-.4 2 7 1.4z"/>`,
+  tshirt:   `<path d="M16.5 2.25L15 3.75 13.5 2.25C13.1 2.09 12.56 2 12 2s-1.1.09-1.5.25L9 3.75 7.5 2.25C6.5 1.5 5 1.5 4 2.25L2 4l2.5 2.5C4.18 7.12 4 7.79 4 8.5V21h16V8.5c0-.71-.18-1.38-.5-1.96L22 4l-2-.25-3.5-1.5z"/>`,
+  trophy:   `<path d="M19 5h-2V3H7v2H5c-1.1 0-2 .9-2 2v1c0 2.55 1.92 4.63 4.39 4.94.63 1.5 1.98 2.63 3.61 2.96V19H7v2h10v-2h-4v-3.1c1.63-.33 2.98-1.46 3.61-2.96C19.08 12.63 21 10.55 21 8V7c0-1.1-.9-2-2-2zM5 8V7h2v3.82C5.84 10.4 5 9.3 5 8zm14 0c0 1.3-.84 2.4-2 2.82V7h2v1z"/>`,
+  gift:     `<path d="M20 6h-2.18c.07-.31.18-.61.18-.94C18 3.36 16.64 2 15.06 2c-.79 0-1.46.31-1.97.82L12 3.92l-1.09-1.1C10.4 2.31 9.73 2 8.94 2 7.36 2 6 3.36 6 4.94c0 .33.11.63.18.94H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-5-.94c.28 0 .5.22.5.5s-.22.5-.5.5-.5-.22-.5-.5.22-.5.5-.5zM8.94 4c.28 0 .5.22.5.5s-.22.5-.5.5-.5-.22-.5-.5.22-.5.5-.5zM11 19H4v-7h7v7zm0-9H4V8h7v2zm9 9h-7v-7h7v7zm0-9h-7V8h7v2z"/>`,
+  mic:      `<path d="M12 14c1.66 0 2.99-1.34 2.99-3L15 5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5.3-3c0 3-2.54 5.1-5.3 5.1S6.7 14 6.7 11H5c0 3.41 2.72 6.23 6 6.72V21h2v-3.28c3.28-.48 6-3.3 6-6.72h-1.7z"/>`,
+  medical:  `<path d="M19 3H5c-1.1 0-1.99.9-1.99 2L3 19c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-1 11h-4v4h-4v-4H6v-4h4V6h4v4h4v4z"/>`
+};
+
+// ── State ────────────────────────────────────────────────────────────────────
+let teamData = null;
+
+function loadData() {
+  try {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (saved) {
+      teamData = JSON.parse(saved);
+      // Backfill extRowCount for older saves that didn't have it
+      if (typeof teamData.extRowCount !== 'number') {
+        teamData.extRowCount = Math.max(10, ...teamData.ext.map(a => a.length));
+      }
+      return;
+    }
+  } catch(e) {}
+  teamData = JSON.parse(JSON.stringify(DEFAULT_DATA));
+}
+
+function saveData() {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(teamData));
+    const toast = document.getElementById('save-toast');
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 2000);
+  } catch(e) {
+    alert('Could not save to browser storage. Use "Download Updated File" instead.');
+  }
+}
+
+function resetData() {
+  if (!confirm('Reset all data to the original defaults? This cannot be undone.')) return;
+  localStorage.removeItem(STORAGE_KEY);
+  teamData = JSON.parse(JSON.stringify(DEFAULT_DATA));
+  populateEditorFields();
+  buildEditorTable();
+  renderChart();
+  updateInfoBars();
+}
+
+// ── Download: bakes current data into a new HTML file ───────────────────────
+function downloadFile() {
+  // Get the current page HTML source
+  const src = document.documentElement.outerHTML;
+  // Replace the DEFAULT_DATA object with current teamData
+  const newDefault = 'const DEFAULT_DATA = ' + JSON.stringify(teamData, null, 2) + ';';
+  const updated = src.replace(/const DEFAULT_DATA = \{[\s\S]*?\};/, newDefault);
+  const blob = new Blob([updated], { type: 'text/html' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'Manthan_2026_Organogram.html';
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+// ── Render chart ─────────────────────────────────────────────────────────────
+function renderChart() {
+  const area = document.getElementById('chart-area');
+  area.innerHTML = buildChart();
+}
+
+function buildChart() {
+  let html = `<div style="min-width:990px;">`;
+
+  // Stems from center down to h-bar
+  html += `<div style="display:flex;gap:10px;align-items:stretch;">`;
+  html += `<div style="width:90px;flex-shrink:0;"></div>`;
+  for (let i = 0; i < 8; i++) {
+    const a = AREAS[i];
+    html += `<div style="flex:1;display:flex;justify-content:center;">
+      <div style="width:3px;height:28px;background:${a.color};"></div>
+    </div>`;
+  }
+  html += `</div>`;
+
+  // KEY AREA row
+  html += `<div style="display:flex;gap:10px;align-items:stretch;">`;
+  html += labelBox('KEY<br>AREA', '#1a2f5e');
+  for (let i = 0; i < 8; i++) {
+    const a = AREAS[i];
+    html += `<div style="flex:1;">
+      <div class="key-area-box" style="border-color:${a.color};background:${a.light};">
+        <div class="ka-icon-circle" style="border-color:${a.color};">
+          <svg viewBox="0 0 24 24" style="fill:${a.color}">${ICONS[a.icon]}</svg>
+        </div>
+        <div class="ka-label" style="color:${a.color};">${a.label.replace(/\n/g,'<br>')}</div>
+      </div>
+    </div>`;
+  }
+  html += `</div>`;
+
+  // Dashed connectors → core
+  html += dashedRow(true);
+
+  // CORE TEAM row
+  html += `<div style="display:flex;gap:10px;align-items:stretch;">`;
+  html += labelBox('CORE<br>TEAM', '#1a2f5e');
+  for (let i = 0; i < 8; i++) {
+    const a = AREAS[i];
+    const names = (teamData.core[i] || '').split('\n').map(s=>s.trim()).filter(Boolean);
+    html += `<div style="flex:1;">
+      <div class="core-box" style="border-color:${a.color};background:${a.light};">`;
+    if (names.length) names.forEach(n => html += `<div class="core-name" style="color:${a.color};">${esc(n)}</div>`);
+    else html += `<div class="ext-empty" style="color:${a.color};">—</div>`;
+    html += `</div></div>`;
+  }
+  html += `</div>`;
+
+  // Dashed connectors → extended
+  html += dashedRow(false);
+
+  // EXTENDED TEAM row
+  html += `<div style="display:flex;gap:10px;align-items:stretch;margin-bottom:24px;">`;
+  html += labelBox('EXTENDED<br>TEAM', '#3a6b38');
+  for (let i = 0; i < 8; i++) {
+    const members = (teamData.ext[i] || []).filter(m => m && m.trim());
+    html += `<div style="flex:1;">
+      <div class="ext-box">`;
+    if (members.length) members.forEach(m => html += `<div class="ext-name">${esc(m)}</div>`);
+    else html += `<div class="ext-empty">—</div>`;
+    html += `</div></div>`;
+  }
+  html += `</div>`;
+
+  html += `</div>`;
+  return html;
+}
+
+function labelBox(text, bg) {
+  return `<div style="width:90px;flex-shrink:0;background:${bg};color:white;border-radius:8px;
+    display:flex;align-items:center;justify-content:center;text-align:center;
+    font-size:0.75rem;font-weight:800;letter-spacing:1px;text-transform:uppercase;
+    line-height:1.3;padding:6px 4px;box-shadow:0 3px 10px rgba(0,0,0,0.15);">${text}</div>`;
+}
+
+function dashedRow(coloured) {
+  let html = `<div style="display:flex;gap:10px;">`;
+  html += `<div style="width:90px;flex-shrink:0;"></div>`;
+  for (let i = 0; i < 8; i++) {
+    const color = coloured ? AREAS[i].color : '#aab';
+    html += `<div style="flex:1;display:flex;justify-content:center;">
+      <div style="width:0;height:20px;border-left:2.5px dashed ${color};"></div>
+    </div>`;
+  }
+  html += `</div>`;
+  return html;
+}
+
+// ── Info bar & hierarchy boxes ───────────────────────────────────────────────
+function updateInfoBars() {
+  document.getElementById('hdr-title').textContent  = teamData.title;
+  document.getElementById('info-date').textContent  = teamData.date;
+  document.getElementById('info-venue').textContent = teamData.venue;
+  document.getElementById('info-sc').textContent    = teamData.sc;
+  document.getElementById('info-pl').textContent    = teamData.pl;
+  document.getElementById('sc-name').textContent    = teamData.sc;
+  document.getElementById('pl-name').textContent    = teamData.pl;
+}
+
+// ── Editor ───────────────────────────────────────────────────────────────────
+function populateEditorFields() {
+  document.getElementById('ed-title').value = teamData.title;
+  document.getElementById('ed-date').value  = teamData.date;
+  document.getElementById('ed-venue').value = teamData.venue;
+  document.getElementById('ed-sc').value    = teamData.sc;
+  document.getElementById('ed-pl').value    = teamData.pl;
+}
+
+function buildEditorTable() {
+  const tbody = document.getElementById('team-tbody');
+  tbody.innerHTML = '';
+
+  // Core row
+  let coreRow = `<tr class="row-type-core"><td style="text-align:center;font-weight:700;font-size:0.75rem;color:#7f4f00;padding:4px;">Core Team</td>`;
+  for (let i = 0; i < 8; i++) {
+    const val = (teamData.core[i] || '').replace(/\n/g, ', ');
+    coreRow += `<td><input value="${escAttr(val)}" data-type="core" data-col="${i}" oninput="onCellEdit(this)"></td>`;
+  }
+  tbody.innerHTML = coreRow + `</tr>`;
+
+  // Extended rows — driven by teamData.extRowCount
+  for (let r = 0; r < teamData.extRowCount; r++) {
+    appendExtRow(r, false);
+  }
+}
+
+function appendExtRow(r, focus) {
+  const tbody = document.getElementById('team-tbody');
+  const tr = document.createElement('tr');
+  tr.className = 'row-type-ext';
+  tr.dataset.extrow = r;
+
+  let html = `<td style="text-align:center;font-size:0.72rem;color:#555;padding:4px;white-space:nowrap;">
+    Ext ${r+1}
+    <button onclick="deleteRow(${r})" title="Delete this row"
+      style="background:none;border:none;cursor:pointer;color:#dc3545;font-size:0.9rem;padding:0 2px;line-height:1;">✕</button>
+  </td>`;
+  for (let i = 0; i < 8; i++) {
+    const val = (teamData.ext[i] && teamData.ext[i][r]) || '';
+    html += `<td><input value="${escAttr(val)}" data-type="ext" data-col="${i}" data-row="${r}" oninput="onCellEdit(this)"></td>`;
+  }
+  tr.innerHTML = html;
+  tbody.appendChild(tr);
+
+  if (focus) {
+    const firstInput = tr.querySelector('input');
+    if (firstInput) firstInput.focus();
+  }
+}
+
+function addRow() {
+  const r = teamData.extRowCount;
+  teamData.extRowCount++;
+  // Ensure ext arrays are long enough
+  for (let i = 0; i < 8; i++) {
+    if (!teamData.ext[i]) teamData.ext[i] = [];
+    while (teamData.ext[i].length <= r) teamData.ext[i].push('');
+  }
+  appendExtRow(r, true);
+  autosave();
+}
+
+function deleteRow(r) {
+  if (teamData.extRowCount <= 1) {
+    alert('You must have at least 1 extended team row.');
+    return;
+  }
+  // Remove row r from all ext arrays by shifting up
+  for (let i = 0; i < 8; i++) {
+    if (teamData.ext[i]) {
+      teamData.ext[i].splice(r, 1);
+    }
+  }
+  teamData.extRowCount--;
+  buildEditorTable();
+  renderChart();
+  autosave();
+}
+
+function deleteLastRow() {
+  deleteRow(teamData.extRowCount - 1);
+}
+
+function autosave() {
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(teamData)); } catch(e) {}
+}
+
+function onCellEdit(input) {
+  const col = parseInt(input.dataset.col);
+  if (input.dataset.type === 'core') {
+    teamData.core[col] = input.value.replace(/,\s*/g, '\n');
+  } else {
+    const r = parseInt(input.dataset.row);
+    if (!teamData.ext[col]) teamData.ext[col] = [];
+    teamData.ext[col][r] = input.value.trim();
+  }
+  renderChart();
+  autosave();
+}
+
+function onInfoEdit() {
+  teamData.title = document.getElementById('ed-title').value;
+  teamData.date  = document.getElementById('ed-date').value;
+  teamData.venue = document.getElementById('ed-venue').value;
+  teamData.sc    = document.getElementById('ed-sc').value;
+  teamData.pl    = document.getElementById('ed-pl').value;
+  updateInfoBars();
+  autosave();
+}
+
+function toggleEditor() {
+  document.getElementById('editor-body').classList.toggle('open');
+  document.getElementById('editor-toggle').classList.toggle('open');
+}
+
+function esc(s)     { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function escAttr(s) { return esc(s).replace(/"/g,'&quot;'); }
+
+// ── Init ─────────────────────────────────────────────────────────────────────
+loadData();
+updateInfoBars();
+populateEditorFields();
+buildEditorTable();
+renderChart();
+</script>
+
+
+</body></html>
